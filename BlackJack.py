@@ -19,14 +19,20 @@ J,Q,K는 10으로 간주
 '''
 import random
 import os
+import platform
 from time import sleep
 #from IPython.display import clear_output
+runningSystem=platform.system() #구동환경 확인
 
 #화면 지우기
 def clear(time):
     sleep(time)
-    os.system('cls') #windows os
-    #os.system('clear') #Mac os
+    if runningSystem=="Windows":
+        os.system('cls') #windows os
+    elif runningSystem=="Darwin":
+        os.system('clear') #mac os
+    #elif runningSystem=="Linux":
+        #os.system('clear') #linux os #실제 구동 미확인
     #clear_output()
 
 #카드의 무늬 표시
