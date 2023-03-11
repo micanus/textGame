@@ -25,7 +25,8 @@ from time import sleep
 #화면 지우기
 def clear(time):
     sleep(time)
-    os.system('cls')
+    os.system('cls') #windows os
+    #os.system('clear') #Mac os
     #clear_output()
 
 #카드의 무늬 표시
