@@ -54,7 +54,7 @@ def printMask(lista):
     remark=[]
     for a in range(len(lista)):
         a
-        remark.append('▣ ')
+        remark.append('▣ ?')
     return remark
 
 #분배된 카드의 포인트 계산
@@ -121,8 +121,8 @@ def comparePoint(player,dealer): #21점을 오버한 경우 자동 패배
 def printResult():
     playerPoint=countPoint(playerHand)
     dealerPoint=countPoint(dealerHand)
-    print('player: ',printMark(playerHand), playerPoint)
-    print('dealer: ',printMark(dealerHand), dealerPoint)
+    print('dealer: ',printMark(dealerHand), dealerPoint, '\nplayer: ',printMark(playerHand), playerPoint)
+    
 
 #게임 종료
 def gameEnd(result): #점수 비교 외 게임 종료 경우 호출
@@ -138,24 +138,27 @@ def gameEnd(result): #점수 비교 외 게임 종료 경우 호출
 
 #플레이어의 분배가 완료되면 딜러는 17점 이상이 될때까지 한장씩 패를 추가
 #16점 이하라면 의무적으로 한장씩, 17점 이상이 되면 딜러의 판단에 의해(확률에 따라 20점이 될때까지 선택)
+#19점에서 무한 반복 확인 #17, 18점 정상 동작
 def dealerTurn():
+    middle=17#의무 패 추가 기준
+    limit=20 #임의 판단 기준
     while True:
-        print('dealer의 패: ',printMask(dealerHand))
+        print('dealer의 패: ', printMask(dealerHand), '\nplayer의 패: ', printMark(playerHand))
         clear(3)
         if checkPoint(dealerHand)==False:
             break
-        if countPoint(dealerHand)<17:
+        if countPoint(dealerHand)<middle:
             callDistribution(dealerHand)
-        elif countPoint(dealerHand)>=17 and countPoint(dealerHand)<19:
-            if random.randrange(1,11)<=3:
+        elif countPoint(dealerHand)>=middle and countPoint(dealerHand)<limit:
+            if random.randrange(1,11)<=3: #랜덤 실행
                 callDistribution(dealerHand)
                 break
             else:
                 break
-        elif countPoint(dealerHand)>=20:
+        elif countPoint(dealerHand)>=limit:
             break
-    print('dealer의 패: ',printMark(dealerHand))
-    clear(3)
+    print('dealer의 패: ', printMark(dealerHand), '\nplayer의 패: ', printMark(playerHand))
+    clear(2)
 
 def gameStand():
     try:
@@ -177,7 +180,7 @@ def gameStart():
     firstDistribution(playerHand)
     firstDistribution(dealerHand)
     while True:
-        print('player의 패: ',printMark(playerHand))
+        print('dealer의 패: ', printMask(dealerHand), '\nplayer의 패: ',printMark(playerHand))
         if checkPoint(playerHand)==False:
             end='pB'
             clear(1)
