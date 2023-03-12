@@ -51,10 +51,13 @@ def printMark(lista):
 
 #카드패 가리기
 def printMask(lista):
+    lista=printMark(lista)
     remark=[]
     for a in range(len(lista)):
-        a
-        remark.append('▣ ?')
+        if a == 0 :
+            remark.append(lista[0])
+        else:
+            remark.append('▣ ?')
     return remark
 
 #분배된 카드의 포인트 계산
