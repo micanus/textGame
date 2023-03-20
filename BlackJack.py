@@ -144,25 +144,22 @@ def gameEnd(result): #점수 비교 외 게임 종료 경우 호출
         print('dealer Bust\nplayer의 승리')
 
 #플레이어의 분배가 완료되면 딜러는 17점 이상이 될때까지 한장씩 패를 추가
-#16점 이하라면 의무적으로 한장씩, 17점 이상이 되면 딜러의 판단에 의해(확률에 따라 20점이 될때까지 선택) => 17점이 넘으면 무조건 Stay
-#19점에서 무한 반복 확인 #17, 18점 정상 동작
+#16점 이하라면 의무적으로 한장씩, 17점이 넘으면 무조건 Stay
 def dealerTurn():
-    middle=17#의무 패 추가 기준
-    limit=20 #임의 판단 기준
+    print('dealer의 패: ', printMask(dealerHand),
+        '\nplayer의 패: ', printMark(playerHand),
+        '\n\ndealer의 차례입니다.')
+    clear(3)
+    limit=17#의무 패 추가 기준
     while True:
-        print('dealer의 패: ', printMask(dealerHand),
-              '\nplayer의 패: ', printMark(playerHand))
+        print('dealer의 패: ', printMark(dealerHand),
+              '\nplayer의 패: ', printMark(playerHand),
+              '\n\ndealer의 차례입니다.')
         clear(3)
         if checkPoint(dealerHand)==False:
             break
-        if countPoint(dealerHand)<middle:
+        if countPoint(dealerHand)<limit:
             callDistribution(dealerHand)
-        elif countPoint(dealerHand)>=middle and countPoint(dealerHand)<limit:
-            if random.randrange(1,11)<=3: #랜덤 실행
-                callDistribution(dealerHand)
-                break
-            else:
-                break
         elif countPoint(dealerHand)>=limit:
             break
     print('dealer의 패: ', printMark(dealerHand),
