@@ -75,12 +75,15 @@ def checkPoint(lista): #카드 배분후 21이 넘는지 확인하여 넘을경�
     else:
         return True
 
-#최초 카드 분배
-def firstDistribution(lista):
+#최초 카드 분배 #player, dealer 순으로 한장씩 분배
+def firstDistribution(lista,listb):
     i=0
-    while i<2:
+    while i<4:
         distribution=stackOfCard.pop(0)
-        lista.append(distribution)
+        if i%2==0:
+            lista.append(distribution)
+        else:
+            listb.append(distribution)
         i+=1
     return lista
 
@@ -124,7 +127,8 @@ def comparePoint(player,dealer): #21점을 오버한 경우 자동 패배
 def printResult():
     playerPoint=countPoint(playerHand)
     dealerPoint=countPoint(dealerHand)
-    print('dealer: ',printMark(dealerHand), dealerPoint, '\nplayer: ',printMark(playerHand), playerPoint)
+    print('dealer: ',printMark(dealerHand), dealerPoint,
+          '\nplayer: ',printMark(playerHand), playerPoint)
     
 
 #게임 종료
@@ -140,13 +144,14 @@ def gameEnd(result): #점수 비교 외 게임 종료 경우 호출
         print('dealer Bust\nplayer의 승리')
 
 #플레이어의 분배가 완료되면 딜러는 17점 이상이 될때까지 한장씩 패를 추가
-#16점 이하라면 의무적으로 한장씩, 17점 이상이 되면 딜러의 판단에 의해(확률에 따라 20점이 될때까지 선택)
+#16점 이하라면 의무적으로 한장씩, 17점 이상이 되면 딜러의 판단에 의해(확률에 따라 20점이 될때까지 선택) => 17점이 넘으면 무조건 Stay
 #19점에서 무한 반복 확인 #17, 18점 정상 동작
 def dealerTurn():
     middle=17#의무 패 추가 기준
     limit=20 #임의 판단 기준
     while True:
-        print('dealer의 패: ', printMask(dealerHand), '\nplayer의 패: ', printMark(playerHand))
+        print('dealer의 패: ', printMask(dealerHand),
+              '\nplayer의 패: ', printMark(playerHand))
         clear(3)
         if checkPoint(dealerHand)==False:
             break
@@ -160,7 +165,8 @@ def dealerTurn():
                 break
         elif countPoint(dealerHand)>=limit:
             break
-    print('dealer의 패: ', printMark(dealerHand), '\nplayer의 패: ', printMark(playerHand))
+    print('dealer의 패: ', printMark(dealerHand),
+          '\nplayer의 패: ', printMark(playerHand))
     clear(2)
 
 def gameStand():
@@ -180,10 +186,10 @@ def gameStand():
     return stackOfCard
 
 def gameStart():
-    firstDistribution(playerHand)
-    firstDistribution(dealerHand)
+    firstDistribution(playerHand,dealerHand)
     while True:
-        print('dealer의 패: ', printMask(dealerHand), '\nplayer의 패: ',printMark(playerHand))
+        print('dealer의 패: ', printMask(dealerHand),
+              '\nplayer의 패: ',printMark(playerHand))
         if checkPoint(playerHand)==False:
             end='pB'
             clear(1)
