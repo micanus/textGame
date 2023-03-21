@@ -35,6 +35,34 @@ def clear(time):
         #os.system('clear') #linux os #실제 구동 미확인
     #clear_output()
 
+#메인 화면
+def gameMain():
+    #안내 화면
+    #R=규칙 안내, S=게임 시작, D=종료
+    print('♠ ♥ ♦ ♣ Wellcome Blackjack ♠ ♥ ♦ ♣\n')
+    print('키를 입력하여 주세요','\nR:규칙 S:게임시작 D:종료')
+    command=str(input('\n입력: '))
+    clear(0.5)
+    return command
+
+#종료
+def displayEnd():
+    input('\n임의의 키를 입력하면 게임이 종료됩니다.')
+    clear(0.5)
+    print(' ♠ ♥ ♦ ♣ ♠ ♥ ♦ ♣ ♠ ♥ ♦ ♣\n플레이 해주셔서 감사합니다\nThank you\n ♠ ♥ ♦ ♣ ♠ ♥ ♦ ♣ ♠ ♥ ♦ ♣')
+    clear(3)
+
+#룰 출력
+def printRule():
+    print('♠ ♥ ♦ ♣ Rule of Blackjack ♠ ♥ ♦ ♣\n')
+    print('Joker를 제외한 52장의 카드, 1벌 또는 그 이상을 사용 가능',
+          '\nA(1)부터 J,Q,K(10)까지 합하여 21 또는 21에 가까운 수를 가진 경우 승리.',
+          '\n21을 넘기면(버스트) 패배')
+    print('\n임의의 키를 입력하면 화면을 종료하고 메인 화면으로 돌아갑니다.')
+    command=input('입력:')
+    clear(0.5)
+    return command
+
 #카드의 무늬 표시
 def printMark(lista):
     remark=[]
@@ -195,7 +223,7 @@ def gameStart():
         print('\n카드를 더 받으시겠습니까?(Hit:H, Stay:S, Surrender:D)')
         playerChoice=str(input('입력(H/S/D): '))
         clear(1)
-        if playerChoice=='H'or playerChoice=='h':
+        if playerChoice=='H' or playerChoice=='h':
             #카드를 한 장 추가 분배
             callDistribution(playerHand)
         elif playerChoice=='S' or playerChoice=='s': #분배를 종료하고 딜러에게 차례를 넘김
@@ -212,32 +240,36 @@ def gameStart():
             clear(1)
 
 #game standby
-playerHand=[]
-dealerHand=[]
-playerPoint=0
-dealerPoint=0
-pointTable={'A':1,'2':2,'3':3,'4':4,'5':5,'6':6,'7':7,'8':8,'9':9,'0':10,'J':10,'Q':10,'K':10} 
+pointTable={'A':1,'2':2,'3':3,'4':4,'5':5,'6':6,'7':7,'8':8,'9':9,'0':10,'J':10,'Q':10,'K':10}
 oneStack=['SA','S2','S3','S4','S5','S6','S7','S8','S9','S10','SJ','SQ','SK',
-        'DA','D2','D3','D4','D5','D6','D7','D8','D9','D10','DJ','DQ','DK',
-        'HA','H2','H3','H4','H5','H6','H7','H8','H9','H10','HJ','HQ','HK',
-        'CA','C2','C3','C4','C5','C6','C7','C8','C9','C10','CJ','CQ','CK']
+          'DA','D2','D3','D4','D5','D6','D7','D8','D9','D10','DJ','DQ','DK',
+          'HA','H2','H3','H4','H5','H6','H7','H8','H9','H10','HJ','HQ','HK',
+          'CA','C2','C3','C4','C5','C6','C7','C8','C9','C10','CJ','CQ','CK']
+def gameInitialize():
+    playerHand=[]
+    dealerHand=[]
+    playerPoint=0
+    dealerPoint=0
+    return playerHand, dealerHand, playerPoint, dealerPoint
 
 #player in
 clear(0)
-print('♠ ♥ ♦ ♣ Wellcome Blackjack ♠ ♥ ♦ ♣\n')
-#안내 화면
-#R=규칙 안내, S=게임 시작, D=종료
-
-#게임 준비
-stackOfCard=gameStand()
-
-#게임 진행
-gameStart()
-
-input('\n키를 입력하면 게임이 종료됩니다.')
-clear(0.5)
-print(' ♠ ♥ ♦ ♣ ♠ ♥ ♦ ♣ ♠ ♥ ♦ ♣\n플레이 해주셔서 감사합니다\nThank you\n ♠ ♥ ♦ ♣ ♠ ♥ ♦ ♣ ♠ ♥ ♦ ♣')
-clear(3)
+while True:
+    com=gameMain()
+    if com=='S' or com=='s':
+        #게임 준비
+        playerHand, dealerHand, playerPoint, dealerPoint = gameInitialize() #초기화
+        stackOfCard=gameStand() #새로 셔플하는 기능 구현 필요 or 게임 시작 시 한번만 셔플
+        #게임 시작
+        gameStart()
+        input('임의의 키를 입력하여 계속 진행')
+        clear(0.5)
+    elif com=='R' or com=='r':
+        #규칙 출력
+        printRule()
+    elif com=='D' or com=='d':
+        displayEnd()
+        break
 
 #21이면 바로 승리로 할 수 있는가?
 #이후 Ace의 점수 변경 및 세부 규칙을 적용할 것
