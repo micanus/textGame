@@ -240,34 +240,34 @@ def gameStart():
             clear(1)
 
 #game standby
-pointTable={'A':1,'2':2,'3':3,'4':4,'5':5,'6':6,'7':7,'8':8,'9':9,'0':10,'J':10,'Q':10,'K':10}
-oneStack=['SA','S2','S3','S4','S5','S6','S7','S8','S9','S10','SJ','SQ','SK',
-          'DA','D2','D3','D4','D5','D6','D7','D8','D9','D10','DJ','DQ','DK',
-          'HA','H2','H3','H4','H5','H6','H7','H8','H9','H10','HJ','HQ','HK',
-          'CA','C2','C3','C4','C5','C6','C7','C8','C9','C10','CJ','CQ','CK']
+pointTable = {'A':1,'2':2,'3':3,'4':4,'5':5,'6':6,'7':7,'8':8,'9':9,'0':10,'J':10,'Q':10,'K':10}
+oneStack = ['SA','S2','S3','S4','S5','S6','S7','S8','S9','S10','SJ','SQ','SK',
+            'DA','D2','D3','D4','D5','D6','D7','D8','D9','D10','DJ','DQ','DK',
+            'HA','H2','H3','H4','H5','H6','H7','H8','H9','H10','HJ','HQ','HK',
+            'CA','C2','C3','C4','C5','C6','C7','C8','C9','C10','CJ','CQ','CK']
 def gameInitialize():
-    playerHand=[]
-    dealerHand=[]
-    playerPoint=0
-    dealerPoint=0
+    playerHand = []
+    dealerHand = []
+    playerPoint = 0
+    dealerPoint = 0
     return playerHand, dealerHand, playerPoint, dealerPoint
 
 #player in
 clear(0)
 while True:
-    com=gameMain()
-    if com=='S' or com=='s':
+    command=gameMain()
+    if command=='S' or command=='s':
         #게임 준비
         playerHand, dealerHand, playerPoint, dealerPoint = gameInitialize() #초기화
-        stackOfCard=gameStand() #새로 셔플하는 기능 구현 필요 or 게임 시작 시 한번만 셔플
+        stackOfCard = gameStand() #새로 셔플하는 기능 구현 필요 or 게임 시작 시 한번만 셔플
         #게임 시작
         gameStart()
-        input('임의의 키를 입력하여 계속 진행')
+        input('\n임의의 키를 입력하여 계속 진행')
         clear(0.5)
-    elif com=='R' or com=='r':
+    elif command=='R' or command=='r':
         #규칙 출력
         printRule()
-    elif com=='D' or com=='d':
+    elif command=='D' or command=='d':
         displayEnd()
         break
 
