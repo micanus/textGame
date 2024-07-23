@@ -49,7 +49,7 @@ def gameMain():
 def displayEnd():
     input('\n임의의 키를 입력하면 게임이 종료됩니다.')
     clear(0.5)
-    print(' ♠ ♥ ♦ ♣ ♠ ♥ ♦ ♣ ♠ ♥ ♦ ♣\n플레이 해주셔서 감사합니다\nThank you\n ♠ ♥ ♦ ♣ ♠ ♥ ♦ ♣ ♠ ♥ ♦ ♣')
+    print(' ♠ ♥ ♦ ♣ ♠ ♥ ♦ ♣ ♠ ♥ ♦ ♣\n플레이 해주셔서 감사합니다\n       Thank you\n ♠ ♥ ♦ ♣ ♠ ♥ ♦ ♣ ♠ ♥ ♦ ♣')
     clear(3)
 
 #룰 출력
